@@ -62,24 +62,35 @@ class General_Bootstrap {
 	/**
 	 * text_domain
 	 *
-	 * (default value: 'general')
+	 * (default value: 'general-bootstrap')
 	 *
 	 * @var string
 	 * @access private
 	 * @static
 	 */
-	private static $text_domain = 'general-bootstrap';
+	public static $text_domain = 'general-bootstrap';
 
 	/**
 	 * prefix
 	 *
-	 * (default value: 'general_')
+	 * (default value: 'general_bootstrap_')
 	 *
 	 * @var string
 	 * @access private
 	 * @static
 	 */
-	private static $prefix = 'general_bootstrap_';
+	public static $prefix = 'general_bootstrap_';
+
+	/**
+	 * prefix_dash
+	 *
+	 * (default value: 'gen-bts-')
+	 *
+	 * @var string
+	 * @access public
+	 * @static
+	 */
+	public static $prefix_dash = 'gen-bts-';
 
 	/**
 	 * settings_page
@@ -90,7 +101,7 @@ class General_Bootstrap {
 	 * @access private
 	 * @static
 	 */
-	private static $settings_page = 'general-bootstrap-admin-menu-settings';
+	public static $settings_page = 'general-bootstrap-admin-menu-settings';
 
 	/**
 	 * tabs_settings_page
@@ -101,7 +112,7 @@ class General_Bootstrap {
 	 * @access private
 	 * @static
 	 */
-	private static $tabs_settings_page = 'general-bootstrap-admin-menu-tab-settings';
+	public static $tabs_settings_page = 'general-bootstrap-admin-menu-tab-settings';
 
 	/**
 	 * usage_page
@@ -112,7 +123,7 @@ class General_Bootstrap {
 	 * @access private
 	 * @static
 	 */
-	private static $usage_page = 'general-bootstrap-admin-menu-usage';
+	public static $usage_page = 'general-bootstrap-admin-menu-usage';
 
 	/**
 	 * default
@@ -149,9 +160,9 @@ class General_Bootstrap {
 		/* Check if multisite, if so then save as site option */
 
 		if (function_exists('is_multisite') && is_multisite()) {
-			add_site_option(self::$prefix . 'version', GENERAL_BOOTSTRAP_VERSION_NUM);
+			update_site_option(self::$prefix . 'version', GENERAL_BOOTSTRAP_VERSION_NUM);
 		} else {
-			add_option(self::$prefix . 'version', GENERAL_BOOTSTRAP_VERSION_NUM);
+			update_option(self::$prefix . 'version', GENERAL_BOOTSTRAP_VERSION_NUM);
 		}
 	}
 
@@ -258,21 +269,13 @@ class General_Bootstrap {
 
 		// Default values
 
-		if ($settings === false) {
+		if ( $settings === false ) {
 			$settings = self::$default;
 		}
 
 		// Save data nd check nonce
 
 		if (isset($_POST['submit']) && check_admin_referer(self::$prefix . 'admin_settings')) {
-
-			$settings = get_option(self::$prefix . 'settings');
-
-			// Default values
-
-			if ($settings === false) {
-				$settings = self::$default;
-			}
 
 			$settings = array(
 				'text'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'text'])),
