@@ -214,7 +214,7 @@ class General_Bootstrap {
 	    	__('Usage', self::$text_domain),  							// Menu name
 	    	'manage_options', 											// Capabilities
 	    	self::$usage_page, 											// slug
-	    	array('General_Bootstrap', 'admin_usage')								// Callback function
+	    	array('General_Bootstrap', 'admin_usage')					// Callback function
 	    );
 	    add_action("admin_print_scripts-$usage_page_load", array('General_Bootstrap', 'include_admin_scripts'));
 
@@ -225,8 +225,8 @@ class General_Bootstrap {
 	    	__('Tabs', self::$text_domain),  							// Page title
 	    	__('Tabs', self::$text_domain),  							// Menu name
 	    	'manage_options', 											// Capabilities
-	    	self::$tabs_settings_page, 											// slug
-	    	array('General_Bootstrap', 'admin_tabs')		// Callback function
+	    	self::$tabs_settings_page, 									// slug
+	    	array('General_Bootstrap', 'admin_tabs')					// Callback function
 	    );
 	    add_action("admin_print_scripts-$tabs_page_load", array('General_Bootstrap', 'include_admin_scripts'));
 	}
@@ -273,17 +273,17 @@ class General_Bootstrap {
 			$settings = self::$default;
 		}
 
-		// Save data nd check nonce
+		// Save data and check nonce
 
 		if (isset($_POST['submit']) && check_admin_referer(self::$prefix . 'admin_settings')) {
 
 			$settings = array(
-				'text'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'text'])),
-				'textarea'	=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'textarea'])),
-				'checkbox'	=> isset($_POST[self::$prefix . 'checkbox']) && $_POST[self::$prefix . 'checkbox'] ? true : false,
-				'select'	=> $_POST[self::$prefix . 'select'],
-				'radio'		=> $_POST[self::$prefix . 'radio'],
-				'url'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix . 'url']))
+				'text'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix_dash . 'text'])),
+				'textarea'	=> stripcslashes(sanitize_text_field($_POST[self::$prefix_dash . 'textarea'])),
+				'checkbox'	=> isset($_POST[self::$prefix . 'checkbox']) && $_POST[self::$prefix_dash . 'checkbox'] ? true : false,
+				'select'	=> $_POST[self::$prefix_dash . 'select'],
+				'radio'		=> $_POST[self::$prefix_dash . 'radio'],
+				'url'		=> stripcslashes(sanitize_text_field($_POST[self::$prefix_dash . 'url']))
 			);
 
 			if (function_exists('is_multisite') && is_multisite()) {
@@ -303,7 +303,7 @@ class General_Bootstrap {
 	 */
 	static function admin_usage() {
 		?>
-		<div id="<?php echo self::$prefix; ?>content">
+		<div id="<?php echo self::$prefix_dash; ?>content">
 			<h1><?php _e('Usage Page', self::$text_domain); ?> <small><?php _e('Information about how to use this plugin.', self::$text_domain); ?></small></h1>
 		</div>
 		<?php
@@ -326,23 +326,23 @@ class General_Bootstrap {
 			});
 		</script>
 
-		<div id="<?php echo self::$prefix; ?>content">
+		<div id="<?php echo self::$prefix_dash; ?>content">
 
 			<h1><?php _e('Tabs Page', self::$text_domain); ?></h1>
 
 			<!-- Nav tabs -->
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#<?php echo self::$prefix;?>tab_1" role="tab" data-toggle="tab"><?php _e('Tab 1', self::$text_domain); ?></a></li>
-				<li role="presentation"><a href="#<?php echo self::$prefix;?>tab_2" role="tab" data-toggle="tab"><?php _e('Tab 2', self::$text_domain); ?></a></li>
+				<li role="presentation" class="active"><a href="#<?php echo self::$prefix_dash;?>tab-1" role="tab" data-toggle="tab"><?php _e('Tab 1', self::$text_domain); ?></a></li>
+				<li role="presentation"><a href="#<?php echo self::$prefix_dash;?>tab-2" role="tab" data-toggle="tab"><?php _e('Tab 2', self::$text_domain); ?></a></li>
 			</ul>
 			<br/>
 
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="<?php echo self::$prefix;?>tab_1">
+				<div role="tabpanel" class="tab-pane active" id="<?php echo self::$prefix_dash;?>tab-1">
 					<p><?php _e('Content of Tab 1', self::$text_domain); ?></p>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="<?php echo self::$prefix;?>tab_2">
+				<div role="tabpanel" class="tab-pane" id="<?php echo self::$prefix_dash;?>tab-2">
 					<p><?php _e('Content of Tab 2', self::$text_domain); ?></p>
 				</div>
 			</div>
