@@ -111,7 +111,46 @@
 			</div>
 		</div>
 
-		<?php wp_nonce_field(self::$prefix_dash . 'admin_settings'); ?>
+		<!-- Data Manager -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php _e('Data Manager', self::$text_domain); ?></h3>
+			</div>
+			<div class="panel-body">
+
+				<?php $data_manager_settings->display_all_settings($settings); ?>
+
+			</div>
+		</div>
+
+		<!-- Display Conditions -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php _e('Display Conditions', self::$text_domain); ?></h3>
+			</div>
+			<div class="panel-body">
+
+				<?php $display_conditions_settings->display_all_settings($settings['display_conditions']); ?>
+
+			</div>
+		</div>
+
+		<!-- Newsletter -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><?php _e('Newsletter', self::$text_domain); ?></h3>
+			</div>
+			<div class="panel-body">
+
+				<?php $newsletter_integration_settings->display_all_settings($settings['args']['newsletter']); ?>
+
+			</div>
+		</div>
+
+		<?php wp_nonce_field(self::$prefix . 'admin_settings'); ?>
 
 		<p class="submit">
 			<input type="submit" name="submit" id="submit" class="btn btn-primary" value="<?php _e('Save', self::$text_domain); ?>">
